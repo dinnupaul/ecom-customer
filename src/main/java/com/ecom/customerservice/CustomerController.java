@@ -22,10 +22,10 @@ public class CustomerController
 
     @PostMapping("/update") // URIs SERVE CHUNKS OF DATA UNLIKE URLs WHICH SERVE PAGES
     public ResponseEntity<String> updateCustomerDetails(@RequestBody Customer customer) throws JsonProcessingException {
-        logger.info("initiating customer update in Product Catalog Controller");
+        logger.info("initiating customer update in CustomerController");
         customerRepository.save(customer);
-        logger.info(" product update completed successfully in customer Table");
-        logger.info(customer.getCustomerName()," initiating product topic");
+        logger.info(" customer update completed successfully in customer Table");
+        logger.info(customer.getCustomerName()," initiating customer topic");
         producer.pubUpdateCustomerDetailsMessage(customer.getCustomerName(), "CUSTOMER DETAILS UPDATED SUCCESSFULLY");
 
         return ResponseEntity.ok("Details Updated Successfully");
