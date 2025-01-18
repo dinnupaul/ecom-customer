@@ -1,4 +1,4 @@
-package com.ecom.productcatalogservice;
+package com.ecom.customerservice;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.slf4j.Logger;
@@ -10,23 +10,23 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("api/v1/products")
-public class ProductCatalogController
+@RequestMapping("api/v1/customers")
+public class CustomerController
 {
-    private static final Logger logger = LoggerFactory.getLogger(ProductCatalogController.class.getName());
+    private static final Logger logger  = LoggerFactory.getLogger(CustomerController.class.getName());
     @Autowired
-    ProductRepository productRepository;
+    CustomerRepository customerRepository;
 
     @Autowired
     Producer producer = new Producer();
 
     @PostMapping("/update") // URIs SERVE CHUNKS OF DATA UNLIKE URLs WHICH SERVE PAGES
-    public ResponseEntity<String> updateProductDetails(@RequestBody Product product) throws JsonProcessingException {
-        logger.info("initiating product update in Product Catalog Controller");
-        productRepository.save(product);
-        logger.info(" product update completed successfully in productCatalog Table");
-        logger.info(product.getProductname()," initiating product topic");
-        producer.pubUpdateProductDetailsMessage(product.getProductname(), "PRODUCT DETAILS UPDATED SUCCESSFULLY");
+    public ResponseEntity<String> updateCustomerDetails(@RequestBody Customer customer) throws JsonProcessingException {
+        logger.info("initiating customer update in Product Catalog Controller");
+        customerRepository.save(customer);
+        logger.info(" product update completed successfully in customer Table");
+        logger.info(customer.getCustomerName()," initiating product topic");
+        producer.pubUpdateCustomerDetailsMessage(customer.getCustomerName(), "CUSTOMER DETAILS UPDATED SUCCESSFULLY");
 
         return ResponseEntity.ok("Details Updated Successfully");
     }
@@ -40,8 +40,8 @@ public class ProductCatalogController
     //}
 
     @GetMapping("/getAll")
-    public ResponseEntity<Product> getProduct(@PathVariable String id) {
-        Product product = productRepository.getReferenceById(id);
+    public ResponseEntity<Customer> getProduct(@PathVariable String id) {
+        Customer customer = customerRepository.getReferenceById(id);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
                 //new ResponseEntity(product.get(0));

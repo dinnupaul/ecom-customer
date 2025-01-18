@@ -1,4 +1,4 @@
-package com.ecom.productcatalogservice;
+package com.ecom.customerservice;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.time.LocalTime;
 import java.util.Random;
 
@@ -24,7 +23,7 @@ public class Producer
     @Autowired
     ObjectMapper objectMapper;
 
-    public void pubUpdateProductDetailsMessage(String principal,
+    public void pubUpdateCustomerDetailsMessage(String principal,
                                             String description) throws JsonProcessingException // LOGIN | REGISTER
     {
         Analytic analytic = new Analytic();
